@@ -18619,13 +18619,13 @@ const steamImageUrls = steamId => {
 
 	const createDownloadCatalogCard = game => {
 		const steamId = getSteamAppId(game);
-		if (!game?.name || !steamId) return null;
+		if (!game?.name) return null;
 		const button = document.createElement("button");
 		button.type = "button";
 		button.className = "poster-card";
 		button.dataset.openDetails = "";
 		button.dataset.game = game.name;
-		button.style.setProperty("--cover", `url('https://cdn.akamai.steamstatic.com/steam/apps/${steamId}/library_600x900.jpg')`);
+		button.style.setProperty("--cover", steamId ? `url('https://cdn.akamai.steamstatic.com/steam/apps/${steamId}/library_600x900.jpg')` : "linear-gradient(135deg,#302838,#131118)");
 		const tag = document.createElement("span");
 		tag.className = "tag";
 		tag.textContent = game.genre || "PC game";

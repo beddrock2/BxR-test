@@ -763,5 +763,122 @@ window.DOWNLOAD_GAME_CATALOG = [
     "steamUrl": "https://store.steampowered.com/app/70300/",
     "genre": "Platformer",
     "description": "Traverse a dangerous, les-than-infinite world in a tight platforming challenge."
+  },
+  {
+    "name": "The Legend of Zelda: Breath of the Wild",
+    "genre": "Action adventure",
+    "description": "Explore a vast open-air world as Link in this landmark adventure."
+  },
+  {
+    "name": "PUBG: BATTLEGROUNDS",
+    "steamUrl": "https://store.steampowered.com/app/578080/",
+    "genre": "Battle royale",
+    "description": "Drop in, loot up, and outlast the competition."
+  },
+  {
+    "name": "Super Mario Odyssey",
+    "genre": "Platformer",
+    "description": "Join Mario and Cappy on a globe-trotting platforming adventure."
+  },
+  {
+    "name": "Super Smash Bros. Ultimate",
+    "genre": "Fighting",
+    "description": "A massive crossover fighting game with an all-star roster."
+  },
+  {
+    "name": "The Outer Worlds",
+    "steamUrl": "https://store.steampowered.com/app/578650/",
+    "genre": "Action RPG",
+    "description": "Shape your own story across a corporate-controlled colony."
+  },
+  {
+    "name": "Animal Crossing: New Horizons",
+    "genre": "Life simulation",
+    "description": "Build an island life at your own pace."
+  },
+  {
+    "name": "Ghost of Tsushima DIRECTOR'S CUT",
+    "steamUrl": "https://store.steampowered.com/app/2215430/",
+    "genre": "Action adventure",
+    "description": "Forge a new path as the Ghost and defend Tsushima."
+  },
+  {
+    "name": "It Takes Two",
+    "steamUrl": "https://store.steampowered.com/app/1426210/",
+    "genre": "Co-op adventure",
+    "description": "A co-op adventure built around inventive shared challenges."
+  },
+  {
+    "name": "Deathloop",
+    "steamUrl": "https://store.steampowered.com/app/1252330/",
+    "genre": "Action shooter",
+    "description": "Break a time loop before your rival gets to you first."
+  },
+  {
+    "name": "Metroid Dread",
+    "genre": "Action platformer",
+    "description": "Help Samus escape a dangerous alien world."
+  },
+  {
+    "name": "Psychonauts 2",
+    "steamUrl": "https://store.steampowered.com/app/607080/",
+    "genre": "Platformer",
+    "description": "Dive into imaginative minds in a psychic platforming adventure."
+  },
+  {
+    "name": "Stray",
+    "steamUrl": "https://store.steampowered.com/app/1332010/",
+    "genre": "Adventure",
+    "description": "Explore a neon-lit cybercity through the eyes of a stray cat."
+  },
+  {
+    "name": "Xenoblade Chronicles 3",
+    "genre": "JRPG",
+    "description": "Unravel a vast story connecting the futures of two worlds."
+  },
+  {
+    "name": "Baldur's Gate 3",
+    "steamUrl": "https://store.steampowered.com/app/1086940/",
+    "genre": "CRPG",
+    "description": "Gather a party and shape an epic Dungeons & Dragons adventure."
+  },
+  {
+    "name": "Super Mario Bros. Wonder",
+    "genre": "Platformer",
+    "description": "A side-scrolling Mario adventure full of surprising Wonder effects."
+  },
+  {
+    "name": "The Legend of Zelda: Tears of the Kingdom",
+    "genre": "Action adventure",
+    "description": "Create, explore, and discover new heights across Hyrule."
+  },
+  {
+    "name": "Astro Bot",
+    "steamUrl": "https://store.steampowered.com/app/2662380/",
+    "genre": "Platformer",
+    "description": "Join Astro on a colorful galaxy-spanning rescue mission."
+  },
+  {
+    "name": "Balatro",
+    "steamUrl": "https://store.steampowered.com/app/2379780/",
+    "genre": "Roguelike deckbuilder",
+    "description": "Build powerful poker hands and chase high-scoring runs."
+  },
+  {
+    "name": "Clair Obscur: Expedition 33",
+    "steamUrl": "https://store.steampowered.com/app/1903340/",
+    "genre": "Turn-based RPG",
+    "description": "Lead an expedition to stop the Paintress and break her cycle."
+  },
+  {
+    "name": "Donkey Kong Bananza",
+    "genre": "Platformer",
+    "description": "A Donkey Kong adventure built around explosive exploration."
+  },
+  {
+    "name": "Kingdom Come: Deliverance II",
+    "steamUrl": "https://store.steampowered.com/app/1771300/",
+    "genre": "Open-world RPG",
+    "description": "Continue Henry's story in a detailed medieval open world."
   }
 ];

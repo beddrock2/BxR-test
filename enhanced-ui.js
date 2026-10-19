@@ -495,7 +495,7 @@ function enhanceGenreDropdown() {
   
   // Get options from select
   const options = Array.from(select.options);
-  const genres = options.map(opt => ({
+  const genres = options.filter(opt => opt.value !== 'all').map(opt => ({
     value: opt.value,
     text: opt.textContent,
     selected: opt.selected
