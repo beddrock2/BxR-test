@@ -101,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
   addFooterOtherLinks();
   startTitlePulse();
   renderGamesTab();
+  addCollectionsButton();
+  renderCollectionsPage();
   enhanceSortButtons();
   enhanceDiceButton();
   
@@ -112,9 +114,92 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(enhancePosterCards, 3000);
 });
 
+const gameCollections = [
+  ['Borderlands', ['8980', '49520', '261640', '330830', '397540']],
+  ['Marvel’s Spider-Man', ['1817070', '1817190']],
+  ['God of War', ['1593500', '2322010']],
+  ['Resident Evil', ['883710', '2050650', '1196590']],
+  ['Dark Souls', ['211420', '335300', '374320']],
+  ['Fallout', ['22300', '22380', '377160']],
+  ['Tomb Raider', ['391220', '750920']],
+  ['Horizon', ['1151640', '2420110']],
+  ['Dragon Age', ['47890', '1222690']],
+  ['Mafia', ['1030840', '1030830']],
+  ['Dishonored', ['205100', '403640']],
+  ['Dying Light', ['239140', '534380']],
+  ['Subnautica', ['264710', '848450']],
+  ['Little Nightmares', ['424840', '860510']],
+  ['Ori', ['387290', '1057090']],
+  ['NieR', ['524220', '1113560']],
+  ['The Witcher', ['20920', '292030']],
+  ['Pillars of Eternity', ['291650', '560130']]
+];
+
+function addCollectionsButton() {
+  const sortbar = document.querySelector('.catalog-sortbar');
+  if (!sortbar) {
+    const observer = new MutationObserver(() => {
+      if (!document.querySelector('.catalog-sortbar')) return;
+      observer.disconnect();
+      addCollectionsButton();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return;
+  }
+  if (sortbar.querySelector('.collections-trigger')) return;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'collections-trigger';
+  button.textContent = 'Collections';
+  button.addEventListener('click', () => window.location.assign('/#collections'));
+  sortbar.appendChild(button);
+}
+
+function renderCollectionsPage() {
+  if (window.location.pathname !== '/collections' && window.location.hash !== '#collections') return;
+  const content = document.querySelector('nav')?.parentElement;
+  if (!content) {
+    const observer = new MutationObserver(() => {
+      if (!document.querySelector('nav')) return;
+      observer.disconnect();
+      renderCollectionsPage();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return;
+  }
+  if (content.querySelector('#collections-tab')) return;
+  content.querySelector('.will-change-transform')?.style.setProperty('display', 'none');
+
+  const page = document.createElement('section');
+  page.id = 'collections-tab';
+  page.className = 'collections-tab';
+  page.innerHTML = '<header class="collections-intro"><p>LIBRARY / COLLECTIONS</p><h1>Every game in a <em>series, in one place.</em></h1><span>Browse connected games and jump back to the Download library when you are ready.</span></header>';
+  const grid = document.createElement('div');
+  grid.className = 'collections-grid';
+
+  gameCollections.forEach(([name, appIds]) => {
+    const card = document.createElement('a');
+    card.className = 'collection-card';
+    card.href = '/download';
+    card.innerHTML = `<div class="collection-art">${appIds.map(id => `<i style="background-image:url('https://cdn.akamai.steamstatic.com/steam/apps/${id}/library_600x900.jpg')"></i>`).join('')}</div><div class="collection-copy"><h2>${name}</h2><p>${appIds.length} games <b>·</b> Browse <strong>→</strong></p></div>`;
+    grid.appendChild(card);
+  });
+  page.appendChild(grid);
+  content.appendChild(page);
+}
+
 function addFooterOtherLinks() {
   const footerGrid = document.querySelector('footer .grid');
-  if (!footerGrid || footerGrid.querySelector('[data-footer-other]')) return;
+  if (!footerGrid) {
+    const observer = new MutationObserver(() => {
+      if (!document.querySelector('footer .grid')) return;
+      observer.disconnect();
+      addFooterOtherLinks();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return;
+  }
+  if (footerGrid.querySelector('[data-footer-other]')) return;
 
   const column = document.createElement('div');
   column.dataset.footerOther = 'true';

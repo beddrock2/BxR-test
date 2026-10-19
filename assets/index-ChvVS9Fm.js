@@ -15985,7 +15985,7 @@ const Rb = ({
 					},
 					children: a.jsx("div", {
 						className: "text-gray-400 text-sm font-orbitron text-center lg:text-left",
-						children: "© 2025 B×R Hub. All rights reserved."
+						children: "© 2026 B×R Hub. All rights reserved."
 					})
 				})]
 			})]

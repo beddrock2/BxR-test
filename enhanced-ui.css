@@ -123,6 +123,46 @@
 
 #download-tab .poster-card { min-height: 295px !important; }
 
+.collections-trigger {
+  flex: 1 1 auto;
+  min-width: 170px;
+  min-height: 40px;
+  padding: 0 18px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 9px;
+  color: #dedee3;
+  background: #15151a;
+  font: 800 13px/1 Inter, sans-serif;
+  letter-spacing: .01em;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, color .2s ease;
+}
+.collections-trigger:hover { border-color: var(--games-accent, #ff5500); color: #fff; background: #202026; }
+
+.collections-tab { min-height: 100vh; padding: 9rem 2vw 4rem; color: #fff; }
+.collections-intro { max-width: 850px; margin: 0 0 3rem; }
+.collections-intro > p { margin: 0 0 1rem; color: var(--games-accent, #ff5500); font: 800 .75rem/1 Orbitron,sans-serif; letter-spacing: .12em; }
+.collections-intro h1 { max-width: 800px; margin: 0; font: 800 clamp(2.5rem,5vw,5rem)/1.05 Inter,sans-serif; letter-spacing: -.07em; }
+.collections-intro h1 em { color: var(--games-accent, #ff5500); font-style: normal; }
+.collections-intro > span { display:block; max-width:650px; margin-top:1.5rem; color:#aaaab0; font-size:1rem; line-height:1.55; }
+.collections-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
+.collection-card { position:relative; display:block; min-height:265px; overflow:hidden; border:1px solid rgba(255,255,255,.13); border-radius:22px; color:#fff; background:#121216; text-decoration:none; isolation:isolate; transition:border-color .25s ease; }
+.collection-card:hover { border-color:rgba(255,255,255,.38); }
+.collection-art { position:absolute; inset:0; display:flex; overflow:hidden; }
+.collection-art::after { position:absolute; z-index:1; inset:0; content:''; pointer-events:none; background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.12) 56%,transparent 100%); }
+.collection-art i { flex:1 1 0; min-width:0; background-position:center; background-size:cover; background-repeat:no-repeat; filter:brightness(.64) saturate(.82); cursor:pointer; transition:flex .42s cubic-bezier(.2,.75,.2,1),filter .25s ease; }
+.collection-art i:not(:first-child) { margin-left:-5%; }
+.collection-art i:first-child { clip-path:polygon(0 0,95% 0,100% 100%,0 100%); }
+.collection-art i:not(:first-child):not(:last-child) { clip-path:polygon(5% 0,95% 0,100% 100%,0 100%); }
+.collection-art i:last-child { clip-path:polygon(5% 0,100% 0,100% 100%,0 100%); }
+.collection-art:hover i { filter:brightness(.5) saturate(.7); }
+.collection-art i:hover { flex:3 1 0; filter:brightness(.9) saturate(1.08); }
+.collection-copy { position:absolute; z-index:1; right:1.75rem; bottom:1.55rem; left:1.75rem; }
+.collection-copy h2 { margin:0 0 .5rem; font:800 clamp(1.25rem,2vw,1.8rem)/1 Orbitron,sans-serif; letter-spacing:-.06em; }
+.collection-copy p { margin:0; color:#ceced3; font-size:.75rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+.collection-copy b { margin:0 .55rem; color:var(--games-accent,#ff5500); }.collection-copy strong { color:var(--games-accent,#ff5500); }
+@media(max-width:700px){.collections-tab{padding-top:7.5rem}.collections-grid{grid-template-columns:1fr;gap:1rem}.collection-card{min-height:220px}.collections-intro{margin-bottom:2rem}}
+
 @media (min-width: 1200px) {
   #download-tab .catalog-shell {
     width: min(1650px, 100%) !important;
