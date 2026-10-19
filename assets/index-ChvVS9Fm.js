@@ -15871,7 +15871,7 @@ const Rb = ({
 		} = $e(), t = e(), n = () => {
 			window.open("https://discord.gg/BpGdmSrGuR", "_blank")
 		}, r = {
-			"Quick Links": ["Download","Contributors"]
+			"Quick Links": ["Download","Contributors","Games"]
 		};
 		return a.jsxs("footer", {
 			className: "bg-black/95 border-t-2 py-10 px-4 sm:px-6 relative overflow-hidden",

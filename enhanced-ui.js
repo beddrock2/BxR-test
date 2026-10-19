@@ -98,6 +98,8 @@ function playCS2Sound(type) {
 document.addEventListener('DOMContentLoaded', function() {
   loadCS2Sounds();
   syncGamesThemeColor();
+  addFooterOtherLinks();
+  startTitlePulse();
   renderGamesTab();
   enhanceSortButtons();
   enhanceDiceButton();
@@ -109,6 +111,50 @@ document.addEventListener('DOMContentLoaded', function() {
   // Enhance poster cards
   setTimeout(enhancePosterCards, 3000);
 });
+
+function addFooterOtherLinks() {
+  const footerGrid = document.querySelector('footer .grid');
+  if (!footerGrid || footerGrid.querySelector('[data-footer-other]')) return;
+
+  const column = document.createElement('div');
+  column.dataset.footerOther = 'true';
+  const heading = document.createElement('h4');
+  heading.className = 'text-white font-semibold mb-3 text-sm uppercase tracking-wide font-orbitron';
+  heading.textContent = 'Other';
+  const quickLinksHeading = footerGrid.querySelector('h4');
+  if (quickLinksHeading) heading.style.color = getComputedStyle(quickLinksHeading).color;
+  const links = document.createElement('ul');
+  links.className = 'space-y-2';
+
+  [
+    ['Bimoli', 'https://bimoli.vercel.app'],
+    ['Portofolio', 'https://portofolio-xyz.vercel.app']
+  ].forEach(([label, href]) => {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className = 'text-gray-400 hover:text-white transition-all duration-500 text-sm relative group inline-block font-orbitron';
+    link.textContent = label;
+    item.appendChild(link);
+    links.appendChild(item);
+  });
+
+  column.append(heading, links);
+  footerGrid.appendChild(column);
+}
+
+function startTitlePulse() {
+  if (window.__bxrTitlePulse) return;
+  window.__bxrTitlePulse = true;
+  const frames = ['[ B×R ]', '| B×R |', '/ B×R /', '- B×R -'];
+  let frame = 0;
+  setInterval(() => {
+    document.title = frames[frame];
+    frame = (frame + 1) % frames.length;
+  }, 500);
+}
 
 function syncGamesThemeColor() {
   const colors = { orange: ['#F97316', '#FB923C'], blue: ['#DC2626', '#F4F4F5'], gray: ['#6366F1', '#A5B4FC'], green: ['#10B981', '#34D399'], red: ['#EF4444', '#F87171'] };
