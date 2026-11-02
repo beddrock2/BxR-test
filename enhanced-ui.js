@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
   renderGamesTab();
   addCollectionsButton();
   renderCollectionsPage();
+  window.addEventListener('hashchange', renderCollectionsPage);
   enhanceSortButtons();
   enhanceDiceButton();
   
@@ -116,6 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const gameCollections = [
   ['Borderlands', ['8980', '49520', '261640', '330830', '397540']],
+  ["Assassin's Creed", ['3159330', '582160', '812140', '2208920', '289650', '368500']],
   ['Marvel’s Spider-Man', ['1817070', '1817190']],
   ['God of War', ['1593500', '2322010']],
   ['Resident Evil', ['883710', '2050650', '1196590']],
@@ -128,12 +130,14 @@ const gameCollections = [
   ['Dishonored', ['205100', '403640']],
   ['Dying Light', ['239140', '534380']],
   ['Subnautica', ['264710', '848450']],
-  ['Little Nightmares', ['424840', '860510']],
+  ['Little Nightmares', ['424840', '860510', '1392860']],
   ['Ori', ['387290', '1057090']],
   ['NieR', ['524220', '1113560']],
   ['The Witcher', ['20920', '292030']],
   ['Pillars of Eternity', ['291650', '560130']]
 ];
+
+let collectionsExitTimer;
 
 function addCollectionsButton() {
   const sortbar = document.querySelector('.catalog-sortbar');
@@ -150,15 +154,17 @@ function addCollectionsButton() {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'collections-trigger';
-  button.textContent = 'Collections';
+  button.setAttribute('aria-label', 'Browse game collections');
+  button.innerHTML = '<span class="collections-trigger-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"></rect><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"></rect><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"></rect></svg></span><span class="collections-trigger-copy"><span>Collections</span><small>Explore game series</small></span><span class="collections-trigger-arrow" aria-hidden="true">→</span>';
   button.addEventListener('click', () => window.location.assign('/#collections'));
   sortbar.appendChild(button);
 }
 
 function renderCollectionsPage() {
-  if (window.location.pathname !== '/collections' && window.location.hash !== '#collections') return;
+  const isCollectionsRoute = window.location.pathname === '/collections' || window.location.hash === '#collections';
   const content = document.querySelector('nav')?.parentElement;
   if (!content) {
+    if (!isCollectionsRoute) return;
     const observer = new MutationObserver(() => {
       if (!document.querySelector('nav')) return;
       observer.disconnect();
@@ -167,25 +173,47 @@ function renderCollectionsPage() {
     observer.observe(document.body, { childList: true, subtree: true });
     return;
   }
-  if (content.querySelector('#collections-tab')) return;
-  content.querySelector('.will-change-transform')?.style.setProperty('display', 'none');
 
-  const page = document.createElement('section');
-  page.id = 'collections-tab';
-  page.className = 'collections-tab';
-  page.innerHTML = '<header class="collections-intro"><p>LIBRARY / COLLECTIONS</p><h1>Every game in a <em>series, in one place.</em></h1><span>Browse connected games and jump back to the Download library when you are ready.</span></header>';
+  const page = content.querySelector('#collections-tab');
+  const appView = content.querySelector('.will-change-transform');
+  if (!isCollectionsRoute) {
+    if (appView) appView.style.removeProperty('display');
+    if (page && !page.classList.contains('collections-tab--exit')) {
+      page.classList.add('collections-tab--exit');
+      clearTimeout(collectionsExitTimer);
+      collectionsExitTimer = setTimeout(() => page.remove(), 650);
+    }
+    return;
+  }
+
+  if (appView) appView.style.setProperty('display', 'none');
+  if (page) {
+    clearTimeout(collectionsExitTimer);
+    page.classList.remove('collections-tab--exit');
+    return;
+  }
+
+  const collectionsPage = document.createElement('section');
+  collectionsPage.id = 'collections-tab';
+  collectionsPage.className = 'collections-tab';
+  collectionsPage.innerHTML = '<header class="collections-intro"><div class="collections-intro-copy"><p>LIBRARY / COLLECTIONS</p><h1>Every game in a <em>series, in one place.</em></h1><span>Browse connected games and jump back to the Download library when you are ready.</span></div><button class="collections-back" type="button">← Back to Download</button></header>';
+  collectionsPage.querySelector('.collections-back').addEventListener('click', () => {
+    window.location.assign('/#/download');
+  });
   const grid = document.createElement('div');
   grid.className = 'collections-grid';
 
-  gameCollections.forEach(([name, appIds]) => {
+  gameCollections.forEach(([name, appIds], index) => {
     const card = document.createElement('a');
     card.className = 'collection-card';
+    card.style.animationDelay = `${index * 32}ms`;
     card.href = '/download';
-    card.innerHTML = `<div class="collection-art">${appIds.map(id => `<i style="background-image:url('https://cdn.akamai.steamstatic.com/steam/apps/${id}/library_600x900.jpg')"></i>`).join('')}</div><div class="collection-copy"><h2>${name}</h2><p>${appIds.length} games <b>·</b> Browse <strong>→</strong></p></div>`;
+    const previewIds = appIds.slice(0, 3);
+    card.innerHTML = `<div class="collection-art collection-art--${previewIds.length}">${previewIds.map(id => `<i style="background-image:url('https://shared.steamstatic.com/store_item_assets/steam/apps/${id}/header.jpg')"></i>`).join('')}</div><div class="collection-copy"><h2>${name}</h2><p>${appIds.length} games <b>·</b> Browse <strong>→</strong></p></div>`;
     grid.appendChild(card);
   });
-  page.appendChild(grid);
-  content.appendChild(page);
+  collectionsPage.appendChild(grid);
+  content.appendChild(collectionsPage);
 }
 
 function addFooterOtherLinks() {

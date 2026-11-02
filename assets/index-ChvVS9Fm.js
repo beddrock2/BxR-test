@@ -18677,7 +18677,7 @@ const renderRequirementRows = rows => rows.map(row => `<span class="requirement-
 
 const renderDownloadDetails = game => {
 	const images = steamImageUrls(game.steamId), poster = game.capsule_image || images.poster, header = game.header_image || images.header, hero = game.background || images.hero;
-	const description = game.about_the_game || game.aboutHtml || steamFallbackDescriptions[game.name] || game.short_description || game.about;
+	const description = game.about_the_game || game.aboutHtml || steamFallbackDescriptions[game.name] || game.detailed_description || game.short_description || game.about;
 	const requirements = game.pc_requirements || {};
 	const minimumRows = parseSteamRequirements(requirements.minimum, game.minimum), recommendedRows = parseSteamRequirements(requirements.recommended, game.recommended);
 	const requirementText = renderRequirementRows(minimumRows), recommendedText = renderRequirementRows(recommendedRows);
@@ -18797,13 +18797,20 @@ function DownloadTabIsolated() {
 		const openDetails = async event => {
 			const gameName = event.currentTarget.dataset.game, game = getDownloadGameDetails(event.currentTarget);
 			let steamData = {};
+			let steamLoadFailed = false;
 			if (game.steamId) {
 				try {
 					const response = await fetch(`/api/steam/${game.steamId}`);
+					if (!response.ok) throw new Error(`Steam API request failed with status ${response.status}`);
 					const payload = await response.json();
-					steamData = payload?.[game.steamId]?.data || {};
+					const appDetails = payload?.[game.steamId];
+					if (!appDetails?.success || !appDetails.data) {
+						throw new Error(`Steam returned no details for app ${game.steamId}`);
+					}
+					steamData = appDetails.data;
 				} catch (error) {
-					steamData = {};
+					steamLoadFailed = true;
+					console.error(`Unable to load Steam details for ${gameName} (app ${game.steamId})`, error);
 				}
 			}
 			details.innerHTML = renderDownloadDetails({ ...game, ...steamData, name: gameName });
@@ -18837,8 +18844,11 @@ function DownloadTabIsolated() {
 			if (storeCopy) {
 				details.querySelector(".store-poster")?.remove();
 				details.querySelector(".store-panel")?.classList.add("steam-description-panel");
-				const rawDescription = steamData.about_the_game || game.aboutHtml || steamFallbackDescriptions[gameName] || game.about;
-				storeCopy.innerHTML = `<p class="description-notice">This text comes straight from the game's store page and is pulled in automatically. We don't write or edit it, so it may contain spoilers.</p><div id="description-wrapper">${rawDescription}</div><button id="read-more-btn" class="read-more-highlight" type="button">Read More ∨</button>`;
+				const rawDescription = steamData.about_the_game || steamData.detailed_description || game.aboutHtml || steamFallbackDescriptions[gameName] || game.about;
+				const notice = steamLoadFailed
+					? "Steam details couldn't be loaded. Showing the available game summary instead."
+					: "This text comes straight from the game's Steam store page and is loaded automatically. It may contain spoilers.";
+				storeCopy.innerHTML = `<p class="description-notice">${notice}</p><div id="description-wrapper">${rawDescription}</div><button id="read-more-btn" class="read-more-highlight" type="button">Read More ∨</button>`;
 			}
 			catalog.classList.add("hidden"), details.classList.remove("hidden"), window.scrollTo({
 				top: 0,

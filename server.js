@@ -71,6 +71,10 @@ app.get("/api/steam/reviews/:appId", rateLimit, validateAppId, async (req, res) 
   return fetchSteamJson(`https://store.steampowered.com/appreviews/${appId}?json=1`, res);
 });
 
-app.listen(port, "127.0.0.1", () => {
-  console.log(`Steam proxy listening on http://localhost:${port}`);
-});
+if (require.main === module) {
+  app.listen(port, "127.0.0.1", () => {
+    console.log(`Steam proxy listening on http://localhost:${port}`);
+  });
+}
+
+module.exports = app;

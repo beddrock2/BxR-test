@@ -279,6 +279,42 @@ window.DOWNLOAD_GAME_CATALOG = [
     "description": "Sail the icy North Atlantic and discover a dangerous new chapter in the Assassin's Creed saga."
   },
   {
+    "name": "Assassin's Creed Shadows",
+    "steamUrl": "https://store.steampowered.com/app/3159330/",
+    "genre": "Open-world action RPG",
+    "description": "Explore feudal Japan as Naoe and Yasuke in the latest Assassin's Creed adventure."
+  },
+  {
+    "name": "Assassin's Creed Origins",
+    "steamUrl": "https://store.steampowered.com/app/582160/",
+    "genre": "Open-world action RPG",
+    "description": "Discover the origins of the Assassin Brotherhood in ancient Egypt."
+  },
+  {
+    "name": "Assassin's Creed Odyssey",
+    "steamUrl": "https://store.steampowered.com/app/812140/",
+    "genre": "Open-world action RPG",
+    "description": "Forge your own path across ancient Greece in this choice-driven adventure."
+  },
+  {
+    "name": "Assassin's Creed Valhalla",
+    "steamUrl": "https://store.steampowered.com/app/2208920/",
+    "genre": "Open-world action RPG",
+    "description": "Lead a Viking clan from Norway to England and build a new home."
+  },
+  {
+    "name": "Assassin's Creed Unity",
+    "steamUrl": "https://store.steampowered.com/app/289650/",
+    "genre": "Action adventure",
+    "description": "Join the French Revolution as Arno in a richly detailed Paris."
+  },
+  {
+    "name": "Assassin's Creed Syndicate",
+    "steamUrl": "https://store.steampowered.com/app/368500/",
+    "genre": "Action adventure",
+    "description": "Take control of twin Assassins fighting to reclaim Victorian London."
+  },
+  {
     "name": "Far Cry 5",
     "steamUrl": "https://store.steampowered.com/app/552520/",
     "genre": "First-person shooter",
@@ -667,6 +703,12 @@ window.DOWNLOAD_GAME_CATALOG = [
     "steamUrl": "https://store.steampowered.com/app/860510/",
     "genre": "Puzzle platformer",
     "description": "A haunting co-op-free adventure about courage, fear, and survival."
+  },
+  {
+    "name": "Little Nightmares III",
+    "steamUrl": "https://store.steampowered.com/app/1392860/",
+    "genre": "Puzzle platformer",
+    "description": "Help Low and Alone escape the Spiral in a new cooperative Little Nightmares adventure."
   },
   {
     "name": "LIMBO",
