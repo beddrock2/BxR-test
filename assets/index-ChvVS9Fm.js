@@ -18606,6 +18606,14 @@ const steamImageUrls = steamId => {
 		}
 	};
 
+	const getSteamDetailsUrl = appId => {
+		const isLocalStaticServer = window.location.protocol === "http:"
+			&& ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname)
+			&& window.location.port !== "3000";
+		const apiBase = isLocalStaticServer ? "http://127.0.0.1:3000/api/steam" : "/api/steam";
+		return `${apiBase}/${appId}`;
+	};
+
 	const getCatalogGenreLabels = genreText => {
 		const labels = [
 			["Action", /\baction\b/i], ["Adventure", /\badventure\b/i], ["Horror", /\bhorror\b/i], ["Indie", /\bindie\b/i],
@@ -18800,7 +18808,7 @@ function DownloadTabIsolated() {
 			let steamLoadFailed = false;
 			if (game.steamId) {
 				try {
-					const response = await fetch(`/api/steam/${game.steamId}`);
+					const response = await fetch(getSteamDetailsUrl(game.steamId));
 					if (!response.ok) throw new Error(`Steam API request failed with status ${response.status}`);
 					const payload = await response.json();
 					const appDetails = payload?.[game.steamId];

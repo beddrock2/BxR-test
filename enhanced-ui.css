@@ -182,7 +182,7 @@
 .collection-art i:hover { z-index:2; flex:2.5 1 0; background-size:100% 100%; filter:brightness(.9) saturate(1.08); }
 .collection-art--2 i:hover { flex-grow:4; }
 .collection-art--3 i:hover { flex-grow:4.6667; }
-.collection-copy { position:absolute; z-index:1; right:1.75rem; bottom:1.55rem; left:1.75rem; }
+.collection-copy { position:absolute; z-index:3; right:1.75rem; bottom:1.55rem; left:1.75rem; }
 .collection-copy h2 { margin:0 0 .5rem; font:800 clamp(1.25rem,2vw,1.8rem)/1 Orbitron,sans-serif; letter-spacing:-.06em; }
 .collection-copy p { margin:0; color:#ceced3; font-size:.75rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
 .collection-copy b { margin:0 .55rem; color:var(--games-accent,#ff5500); }.collection-copy strong { color:var(--games-accent,#ff5500); }

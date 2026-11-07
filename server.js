@@ -5,11 +5,26 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 3000;
 const allowedOrigin = "http://127.0.0.1:5505";
+const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
 const rateLimitWindowMs = 60 * 1000;
 const rateLimitMax = 30;
 const requestCounts = new Map();
 
-app.use(cors({ origin: allowedOrigin }));
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || origin === allowedOrigin) return callback(null, true);
+
+    let requestOrigin;
+    try {
+      requestOrigin = new URL(origin);
+    } catch {
+      return callback(null, false);
+    }
+
+    const isLocalOrigin = requestOrigin.protocol === "http:" && localHosts.has(requestOrigin.hostname);
+    return callback(null, isLocalOrigin);
+  }
+}));
 app.use(express.static(__dirname));
 
 app.get(["/", "/download", "/collections", "/games", "/contribution"], (req, res) => {
